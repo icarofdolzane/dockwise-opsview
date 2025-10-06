@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Bell, Globe, Settings, Menu, X, Calendar } from "lucide-react";
 import { SupplierChart } from "@/components/dashboard/SupplierChart";
 import { MaterialsChart } from "@/components/dashboard/MaterialsChart";
@@ -9,6 +10,8 @@ import { VehicleTypesChart } from "@/components/dashboard/VehicleTypesChart";
 import { FactoryCard } from "@/components/dashboard/FactoryCard";
 import { InspectionsCard } from "@/components/dashboard/InspectionsCard";
 import { VehiclesBySupplierChart } from "@/components/dashboard/VehiclesBySupplierChart";
+import { LoadsInYardCard } from "@/components/dashboard/LoadsInYardCard";
+import { LoadsInFactoryCard } from "@/components/dashboard/LoadsInFactoryCard";
 
 const Index = () => {
   const [factory, setFactory] = useState("FÁBRICA 06");
@@ -75,44 +78,104 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Dashboard Grid */}
+      {/* Dashboard with Tabs */}
       <main className="p-6">
-        <div className="grid grid-cols-12 gap-6">
-          {/* Fornecedor */}
-          <div className="col-span-5">
-            <SupplierChart />
-          </div>
+        <Tabs defaultValue="recebimento" className="w-full">
+          <TabsList className="mb-6">
+            <TabsTrigger value="recebimento">Recebimento de Material Local</TabsTrigger>
+            <TabsTrigger value="completo">Dashboard Completo</TabsTrigger>
+          </TabsList>
 
-          {/* Tipos de veículo */}
-          <div className="col-span-4">
-            <VehicleTypesChart />
-          </div>
+          {/* Tab 1: Recebimento de Material Local */}
+          <TabsContent value="recebimento">
+            <div className="grid grid-cols-12 gap-6">
+              {/* Fornecedor */}
+              <div className="col-span-5">
+                <SupplierChart />
+              </div>
 
-          {/* Fábrica */}
-          <div className="col-span-3">
-            <FactoryCard />
-          </div>
+              {/* Tipos de veículo */}
+              <div className="col-span-4">
+                <VehicleTypesChart />
+              </div>
 
-          {/* Materiais */}
-          <div className="col-span-5">
-            <MaterialsChart />
-          </div>
+              {/* Fábrica */}
+              <div className="col-span-3">
+                <FactoryCard />
+              </div>
 
-          {/* Veículos na doca */}
-          <div className="col-span-4">
-            <VehiclesInDockChart />
-          </div>
+              {/* Materiais */}
+              <div className="col-span-5">
+                <MaterialsChart />
+              </div>
 
-          {/* Inspeções */}
-          <div className="col-span-3">
-            <InspectionsCard />
-          </div>
+              {/* Veículos na doca */}
+              <div className="col-span-4">
+                <VehiclesInDockChart />
+              </div>
 
-          {/* Tipos de veículos por fornecedor */}
-          <div className="col-span-12">
-            <VehiclesBySupplierChart />
-          </div>
-        </div>
+              {/* Inspeções */}
+              <div className="col-span-3">
+                <InspectionsCard />
+              </div>
+
+              {/* Tipos de veículos por fornecedor */}
+              <div className="col-span-12">
+                <VehiclesBySupplierChart />
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* Tab 2: Dashboard Completo (original) */}
+          <TabsContent value="completo">
+            <div className="grid grid-cols-12 gap-6">
+              {/* Fornecedor */}
+              <div className="col-span-4">
+                <SupplierChart />
+              </div>
+
+              {/* Tipos de veículo */}
+              <div className="col-span-4">
+                <VehicleTypesChart />
+              </div>
+
+              {/* Fábrica */}
+              <div className="col-span-4">
+                <FactoryCard />
+              </div>
+
+              {/* Materiais */}
+              <div className="col-span-4">
+                <MaterialsChart />
+              </div>
+
+              {/* Veículos na doca */}
+              <div className="col-span-4">
+                <VehiclesInDockChart />
+              </div>
+
+              {/* Inspeções */}
+              <div className="col-span-4">
+                <InspectionsCard />
+              </div>
+
+              {/* Cargas em Pátio */}
+              <div className="col-span-6">
+                <LoadsInYardCard />
+              </div>
+
+              {/* Cargas em Fábrica */}
+              <div className="col-span-6">
+                <LoadsInFactoryCard />
+              </div>
+
+              {/* Tipos de veículos por fornecedor */}
+              <div className="col-span-12">
+                <VehiclesBySupplierChart />
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );
