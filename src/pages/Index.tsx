@@ -8,6 +8,7 @@ import { VehiclesInDockChart } from "@/components/dashboard/VehiclesInDockChart"
 import { VehicleTypesChart } from "@/components/dashboard/VehicleTypesChart";
 import { FactoryCard } from "@/components/dashboard/FactoryCard";
 import { InspectionsCard } from "@/components/dashboard/InspectionsCard";
+import { VehiclesBySupplierChart } from "@/components/dashboard/VehiclesBySupplierChart";
 
 const Index = () => {
   const [factory, setFactory] = useState("FÁBRICA 06");
@@ -105,6 +106,11 @@ const Index = () => {
           {/* Inspeções */}
           <div className="col-span-3">
             <InspectionsCard />
+          </div>
+
+          {/* Tipos de veículos por fornecedor */}
+          <div className="col-span-12">
+            <VehiclesBySupplierChart />
           </div>
         </div>
       </main>
