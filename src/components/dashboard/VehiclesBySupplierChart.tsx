@@ -46,10 +46,11 @@ const colors = {
 };
 
 const CustomLabel = (props: any) => {
-  const { x, y, width, height, value } = props;
-  const data = props.payload;
+  const { x, y, width, height, value, payload } = props;
   
-  if (value === data.Automóvel) {
+  if (!payload) return null;
+  
+  if (value === payload.Automóvel) {
     return (
       <text 
         x={x + width + 8} 
@@ -60,7 +61,7 @@ const CustomLabel = (props: any) => {
         fontSize={13}
         fontWeight={600}
       >
-        {data.total}
+        {payload.total}
       </text>
     );
   }
