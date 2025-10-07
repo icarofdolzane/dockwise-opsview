@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Legend, Tooltip, Cell, LabelList } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Legend, Tooltip, LabelList } from "recharts";
 
 const data = [
   { 
@@ -45,23 +45,23 @@ const colors = {
   Automóvel: "hsl(217 91% 60%)",
 };
 
-const CustomLabel = (props: any) => {
-  const { x, y, width, height, value, payload } = props;
+const renderCustomLabel = (props: any) => {
+  const { x, y, width, value, index } = props;
   
-  if (!payload) return null;
+  if (!data[index]) return null;
   
-  if (value === payload.Automóvel) {
+  // Renderizar apenas no último segmento (Automóvel)
+  if (value === data[index].Automóvel) {
     return (
       <text 
-        x={x + width + 8} 
-        y={y + height / 2} 
+        x={x + width / 2} 
+        y={y - 8} 
         fill="hsl(var(--foreground))" 
-        textAnchor="start"
-        dominantBaseline="middle"
+        textAnchor="middle"
         fontSize={13}
         fontWeight={600}
       >
-        {payload.total}
+        {data[index].total}
       </text>
     );
   }
@@ -81,22 +81,18 @@ export const VehiclesBySupplierChart = () => {
         <ResponsiveContainer width="100%" height={280}>
           <BarChart 
             data={data} 
-            layout="horizontal" 
-            margin={{ left: 0, right: 50, top: 0, bottom: 0 }}
+            margin={{ top: 30, right: 10, left: 0, bottom: 0 }}
           >
             <XAxis 
-              type="number"
+              dataKey="name" 
               tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
               axisLine={false}
               tickLine={false}
             />
             <YAxis 
-              type="category"
-              dataKey="name" 
               tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
               axisLine={false}
               tickLine={false}
-              width={120}
             />
             <Tooltip 
               contentStyle={{ 
@@ -109,17 +105,17 @@ export const VehiclesBySupplierChart = () => {
             />
             <Legend 
               wrapperStyle={{ 
-                paddingTop: '20px',
+                paddingTop: '10px',
                 fontSize: '13px'
               }}
               iconType="circle"
-              align="right"
+              align="center"
               verticalAlign="top"
             />
             <Bar dataKey="Carreta" fill={colors.Carreta} stackId="a" radius={[0, 0, 0, 0]} />
             <Bar dataKey="Caminhão" fill={colors.Caminhão} stackId="a" radius={[0, 0, 0, 0]} />
-            <Bar dataKey="Automóvel" fill={colors.Automóvel} stackId="a" radius={[0, 4, 4, 0]}>
-              <LabelList content={CustomLabel} />
+            <Bar dataKey="Automóvel" fill={colors.Automóvel} stackId="a" radius={[4, 4, 0, 0]}>
+              <LabelList content={renderCustomLabel} position="top" />
             </Bar>
           </BarChart>
         </ResponsiveContainer>
